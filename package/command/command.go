@@ -2,7 +2,12 @@ package command
 
 import (
 	"flag"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
 
+	"github.com/MdSadiqMd/GoTasker/package/handlers"
 	"github.com/MdSadiqMd/GoTasker/package/types"
 )
 
@@ -17,4 +22,31 @@ func NewCmdFlags() *types.CmdFlags {
 	flag.Parse()
 
 	return &cf
+}
+
+func Execute(cf *types.CmdFlags, todos *handlers.Todos) {
+	switch {
+	case cf.List:
+		todos.Print()
+	case cf.Add != "":
+		todos.Add(cf.Add)
+	case cf.Edit != "":
+		parts := strings.SplitN(cf.Edit, ":", 2)
+		if len(parts) != 2 {
+			fmt.Println("Error: invalid format for edit. Please use id:new_title")
+			os.Exit(1)
+		}
+		index, err := strconv.Atoi(parts[0])
+		if err != nil {
+			fmt.Println("Error: invalid index for edit")
+			os.Exit(1)
+		}
+		todos.Edit(index, parts[1])
+	case cf.Toggle != -1:
+		todos.Toggle(cf.Toggle)
+	case cf.Del != -1:
+		todos.Delete(cf.Del)
+	default:
+		fmt.Println("Invalid command")
+	}
 }
