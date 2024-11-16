@@ -3,15 +3,18 @@ package handlers
 import (
 	"errors"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/MdSadiqMd/GoTasker/package/types"
+	"github.com/aquasecurity/table"
 )
 
 type Todos []types.Todo
 
 func (todos *Todos) Add(title string) {
-	todo := types.Todo{
+	 todo := types.Todo{
 		Title:       title,
 		Completed:   false,
 		CompletedAt: nil,
@@ -61,4 +64,26 @@ func (todos *Todos) Edit(index int, title string) error {
 	t[index].Title = title
 
 	return nil
+}
+
+func (todos *Todos) Print() {
+	table := table.New(os.Stdout)
+	table.SetRowLines(false)
+	table.SetHeaders("#", "Title", "Completed", "Created At", "Completed At")
+
+	for index, t := range *todos {
+		completed := "❌"
+		completedAt := ""
+		if t.Completed {
+			completed = "✅"
+			if t.CompletedAt != nil {
+				completedAt = t.CompletedAt.Format(time.RFC1123)
+
+			}
+
+		}
+		table.AddRow(strconv.Itoa(index), t.Title, completed, t.CreatedAt.Format(time.RFC1123), completedAt)
+	}
+
+	table.Render()
 }
