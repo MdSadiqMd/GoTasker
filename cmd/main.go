@@ -11,6 +11,7 @@ func main() {
 	todos.Add("Buy Milk")
 	todos.Add("Buy Bread")
 	fmt.Printf("%+v\n\n", todos)
-	todos.Delete(0)
+	todos.Toggle(0)
 	fmt.Printf("%+v", todos)
+	todos.Print()
 }
