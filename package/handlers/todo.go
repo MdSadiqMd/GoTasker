@@ -14,7 +14,7 @@ import (
 type Todos []types.Todo
 
 func (todos *Todos) Add(title string) {
-	 todo := types.Todo{
+	todo := types.Todo{
 		Title:       title,
 		Completed:   false,
 		CompletedAt: nil,
