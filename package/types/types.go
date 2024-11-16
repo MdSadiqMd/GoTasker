@@ -12,3 +12,11 @@ type Todo struct {
 type Storage[T any] struct {
 	FileName string
 }
+
+type CmdFlags struct {
+	Add    string
+	Del    int
+	Edit   string
+	Toggle int
+	List   bool
+}
