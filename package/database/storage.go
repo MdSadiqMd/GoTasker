@@ -7,17 +7,17 @@ import (
 	"github.com/MdSadiqMd/GoTasker/package/types"
 )
 
-// Wrapper of Database type from original types
+// Wrapper around the original Storage type
 type Storage[T any] struct {
 	types.Storage[T]
 }
 
-func NewStorage[T any](fileName string) *types.Storage[T] {
-	return &types.Storage[T]{FileName: fileName}
+func NewStorage[T any](fileName string) *Storage[T] {
+	return &Storage[T]{Storage: types.Storage[T]{FileName: fileName}}
 }
 
 func (s *Storage[T]) Save(data T) error {
-	fileData, err := json.MarshalIndent(data, "", "")
+	fileData, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return err
 	}
