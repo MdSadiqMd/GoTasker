@@ -10,7 +10,7 @@ import (
 
 type Todos []types.Todo
 
-func (todos *Todos) add(title string) {
+func (todos *Todos) Add(title string) {
 	todo := types.Todo{
 		Title:       title,
 		Completed:   false,
@@ -20,7 +20,7 @@ func (todos *Todos) add(title string) {
 	*todos = append(*todos, todo)
 }
 
-func (todos *Todos) validateIndex(index int) error {
+func (todos *Todos) ValidateIndex(index int) error {
 	if index < 0 || index >= len(*todos) {
 		err := errors.New("invalid index")
 		fmt.Println(err)
@@ -29,8 +29,8 @@ func (todos *Todos) validateIndex(index int) error {
 	return nil
 }
 
-func (todos *Todos) delete(index int) error {
-	if err := todos.validateIndex(index); err != nil {
+func (todos *Todos) Delete(index int) error {
+	if err := todos.ValidateIndex(index); err != nil {
 		return err
 	}
 	*todos = append((*todos)[:index], (*todos)[index+1:]...)

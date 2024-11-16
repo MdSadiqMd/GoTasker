@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/MdSadiqMd/GoTasker/package/handlers"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	todos := handlers.Todos{}
+	todos.Add("Buy Milk")
+	todos.Add("Buy Bread")
+	fmt.Printf("%+v\n\n", todos)
+	todos.Delete(0)
+	fmt.Printf("%+v", todos)
 }
