@@ -8,3 +8,7 @@ type Todo struct {
 	CreatedAt   time.Time
 	CompletedAt *time.Time
 }
+
+type Storage[T any] struct {
+	FileName string
+}
