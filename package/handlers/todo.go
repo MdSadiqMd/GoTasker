@@ -52,3 +52,13 @@ func (todos *Todos) Toggle(index int) error {
 
 	return nil
 }
+
+func (todos *Todos) Edit(index int, title string) error {
+	t := *todos
+	if err := t.ValidateIndex(index); err != nil {
+		return err
+	}
+	t[index].Title = title
+
+	return nil
+}
